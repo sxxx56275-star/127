@@ -1,10 +1,11 @@
+
 from flask import Flask, request, jsonify
 import requests
 
 app = Flask(__name__)
 
-# ትክክለኛው የኤፒአይ አድራሻ ከዶክመንቴሽኑ
-SMS_API_URL = "https://smsethiopia.com/api/v1/send" # (ወይም ሙሉውን የ curl ሊንክ በመመልከት)
+# ትክክለኛው የኤፒአይ አድራሻ ከ cURL ትዕዛዙ
+SMS_API_URL = "https://smsethiopia.com/api/sms/send"
 API_KEY = "118TPI5N8GKKDRY14ACNCN7KY2A..."  # የእርስዎ ትክክለኛ API Key
 
 @app.route('/')
@@ -24,7 +25,6 @@ def send_sms():
     if not phone or not message:
         return jsonify({"error": "ስልክ ቁጥር እና መልእክት ያስገቡ"}), 400
 
-    # ዶክመንቴሽኑ እንዳለው የ KEY ሄደር እና የ msisdn/text payload እንጠቀማለን
     headers = {
         "KEY": API_KEY,
         "Content-Type": "application/json"
