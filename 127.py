@@ -6,7 +6,6 @@ app = Flask(__name__)
 SMS_API_URL = "https://smsethiopia.com/api/sms/send"
 API_KEY = "118TPI5N8GKKDRY14ACNCN7KY2A..."  # የእርስዎ ትክክለኛ API Key
 
-# የ HTML ፎርም ገጽ (ልክ እንደጠየቁት ዓይነት)
 HTML_PAGE = """
 <!DOCTYPE html>
 <html>
@@ -62,8 +61,10 @@ def send_sms():
         phone = request.form.get('phone')
         message = request.form.get('message')
         
+        # ከኦፊሴላዊው ዶክመንቴሽን የተወሰደ ትክክለኛ የ Authorization ሄደር
         headers = {
-            "KEY": API_KEY,
+            "Authorization": f"Bearer {API_KEY}",
+            "KEY": API_KEY,  # ሁለቱንም አማራጮች በመጠቀም ስህተትን እንከላከላለን
             "Content-Type": "application/json"
         }
         payload = {
