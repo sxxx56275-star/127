@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 
 SMS_API_URL = "https://smsethiopia.com/api/sms/send"
-API_KEY = 118TPI5N8GKKDRY14ACNCN7KY2AUCTC3IV7ZGSVC  # የእርስዎ ትክክለኛ API Key
+API_KEY = 1A64IQPQ4GWUSMIFQ91CL2L4LLV32879SNTC47LD # የእርስዎ ትክክለኛ API Key
 
 HTML_PAGE = """
 <!DOCTYPE html>
