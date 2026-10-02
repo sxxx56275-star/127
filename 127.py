@@ -3,17 +3,16 @@ import requests
 
 app = Flask(__name__)
 
-SMS_API_URL = "https://api.smsethiopia.com/v1/send"
-API_KEY = "118TPI5N8GKKDRY14ACNCN7KY2A..."  # እባክዎን ትክክለኛውን የ API ቁልፍዎን እዚህ መሆኑን ያረጋግጡ
+# ትክክለኛው የኤፒአይ አድራሻ ከዶክመንቴሽኑ
+SMS_API_URL = "https://smsethiopia.com/api/v1/send" # (ወይም ሙሉውን የ curl ሊንክ በመመልከት)
+API_KEY = "118TPI5N8GKKDRY14ACNCN7KY2A..."  # የእርስዎ ትክክለኛ API Key
 
 @app.route('/')
 def home():
     return "SMS Dispatch App is running successfully!"
 
-# አሁን በ GET እና በ POST ሁለቱንም መቀበል እንዲችል ተደርጓል
 @app.route('/send-sms', methods=['GET', 'POST'])
 def send_sms():
-    # መረጃውን ከ URL (GET) ወይም ከ JSON (POST) መቀበል እንዲችል
     if request.method == 'GET':
         phone = request.args.get('phone')
         message = request.args.get('message')
@@ -23,16 +22,17 @@ def send_sms():
         message = data.get('message')
     
     if not phone or not message:
-        return jsonify({"error": "אנא አቅርብ phone እና message (ስልክ ቁጥር እና መልእክት ያስፈልጋሉ)"}), 400
+        return jsonify({"error": "ስልክ ቁጥር እና መልእክት ያስገቡ"}), 400
 
+    # ዶክመንቴሽኑ እንዳለው የ KEY ሄደር እና የ msisdn/text payload እንጠቀማለን
     headers = {
-        "Authorization": f"Bearer {API_KEY}",
+        "KEY": API_KEY,
         "Content-Type": "application/json"
     }
     
     payload = {
-        "to": phone,
-        "message": message
+        "msisdn": phone,
+        "text": message
     }
     
     try:
